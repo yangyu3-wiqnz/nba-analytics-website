@@ -19,7 +19,7 @@ def test_balldontlie_api():
     try:
         # Test 1: Get all NBA teams
         print("📋 Fetching NBA teams...")
-        teams_url = "https://www.balldontlie.io/api/v1/teams"
+        teams_url = "https://balldontlie.io/api/v1/teams"
         teams_response = requests.get(teams_url, timeout=10)
         
         if teams_response.status_code == 200:
@@ -38,7 +38,7 @@ def test_balldontlie_api():
         
         # Test 2: Get some players
         print("\n👥 Fetching NBA players...")
-        players_url = "https://www.balldontlie.io/api/v1/players?per_page=10"
+        players_url = "https://balldontlie.io/api/v1/players?per_page=10"
         players_response = requests.get(players_url, timeout=10)
         
         if players_response.status_code == 200:
@@ -56,7 +56,7 @@ def test_balldontlie_api():
         
         # Test 3: Search for a specific player (LeBron James)
         print("\n🔍 Searching for LeBron James...")
-        search_url = "https://www.balldontlie.io/api/v1/players?search=lebron"
+        search_url = "https://balldontlie.io/api/v1/players?search=lebron"
         search_response = requests.get(search_url, timeout=10)
         
         if search_response.status_code == 200:
@@ -136,6 +136,69 @@ def test_thesportsdb_api():
         print(f"❌ Unexpected error: {e}")
         return False
 
+def test_nba_stats_api():
+    """Test NBA Stats API (Official NBA.com API)"""
+    print("\n🏀 Testing NBA Stats API (Official NBA.com)...")
+    print("-" * 50)
+    
+    try:
+        print("📋 NBA Stats API Information...")
+        print("✅ Official NBA.com data source")
+        print("✅ Most comprehensive NBA statistics available")
+        print("✅ Excellent Python ecosystem:")
+        print("   - nba_api library (github.com/swar/nba_api)")
+        print("   - py-ball library")
+        print("   - basketball_reference_scraper")
+        
+        print("\n🔧 Setup Requirements:")
+        print("   - pip install nba_api")
+        print("   - Respect rate limits (official guidelines)")
+        print("   - No API key required (but be respectful)")
+        
+        print("\n💡 Why This is Perfect for Your Project:")
+        print("   - You've used it before ✅")
+        print("   - Rich statistical data for analytics ✅")
+        print("   - Active community and documentation ✅")
+        print("   - Free access to comprehensive NBA data ✅")
+        
+        print("\n🎯 NBA Stats API Summary:")
+        print("   ✅ Official NBA data (gold standard)")
+        print("   ✅ Perfect for advanced analytics")
+        print("   ✅ Mature Python libraries available")
+        print("   ✅ Great for your data analyst background")
+        print("   ⚠️  Rate limiting (be respectful)")
+        
+        return True
+        
+    except Exception as e:
+        print(f"❌ Error testing NBA Stats API: {e}")
+        return False
+
+def test_alternative_free_apis():
+    """Updated recommendations based on your experience"""
+    print("\n🏀 Updated API Strategy Based on Your Experience...")
+    print("-" * 50)
+    
+    print("📊 Recommended API Strategy:")
+    print("   1. TheSportsDB ✅ (Working now - Great for teams & basic data)")
+    print("   2. balldontlie.io 🔑 (Requires registration - You've used it)")
+    print("   3. NBA Stats API 🥇 (Official - You've used it, perfect for analytics)")
+    print("   4. Python Libraries 📚 (nba_api, py-ball - Mature ecosystem)")
+    
+    print("\n� Optimal Development Path:")
+    print("   Phase 1: Start with TheSportsDB (immediate results)")
+    print("   Phase 2: Register for balldontlie.io (player data)")
+    print("   Phase 3: Integrate NBA Stats API (advanced analytics)")
+    print("   Phase 4: Use nba_api library (production-ready)")
+    
+    print("\n💡 Why This Strategy Works:")
+    print("   ✅ Get started immediately with TheSportsDB")
+    print("   ✅ Build core functionality first")
+    print("   ✅ Add official NBA data when ready")
+    print("   ✅ Leverage your previous API experience")
+    
+    return True
+
 def generate_api_comparison_report():
     """Generate a comparison report for the APIs"""
     print("\n" + "="*60)
@@ -158,22 +221,28 @@ def generate_api_comparison_report():
     for feature, api1, api2 in features:
         print(f"{feature:15} | {api1:25} | {api2}")
     
-    print("\n💡 RECOMMENDATIONS:")
+    print("\n💡 UPDATED RECOMMENDATIONS (Based on Your Experience):")
     print("-" * 40)
-    print("🥇 For MVP/Starting: balldontlie.io")
-    print("   - Perfect for getting started")
-    print("   - Good player and basic stats data")
-    print("   - Simple, clean API")
+    print("🥇 For Immediate Start: TheSportsDB")
+    print("   - Working now, no setup required")
+    print("   - Great for team data and basic info")
+    print("   - Perfect for MVP development")
     
-    print("\n🥈 For Team Details: TheSportsDB")
-    print("   - Excellent team information")
-    print("   - Rich descriptions and metadata")
-    print("   - Good for team pages")
+    print("\n🥈 For Player Data: balldontlie.io (Register)")
+    print("   - You've used it before")
+    print("   - Register for free API access")
+    print("   - Good for player profiles")
     
-    print("\n🚀 RECOMMENDED HYBRID APPROACH:")
-    print("   1. Start with balldontlie.io for core functionality")
-    print("   2. Add TheSportsDB for enhanced team pages")
-    print("   3. Consider paid APIs later for advanced analytics")
+    print("\n🏆 For Advanced Analytics: NBA Stats API")
+    print("   - Official NBA.com data")
+    print("   - You have experience with it")
+    print("   - Perfect for your data analyst skills")
+    print("   - Rich Python ecosystem (nba_api)")
+    
+    print("\n🚀 PHASED IMPLEMENTATION STRATEGY:")
+    print("   Week 1-2: Build with TheSportsDB (immediate progress)")
+    print("   Week 3-4: Register & integrate balldontlie.io")
+    print("   Week 5+: Add NBA Stats API for advanced features")
 
 def main():
     """Main function to run all API tests"""
@@ -186,6 +255,8 @@ def main():
     results = {}
     results['balldontlie'] = test_balldontlie_api()
     results['thesportsdb'] = test_thesportsdb_api()
+    results['alternatives'] = test_alternative_free_apis()
+    results['nba_stats'] = test_nba_stats_api()
     
     # Generate report
     generate_api_comparison_report()

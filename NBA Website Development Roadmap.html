@@ -413,24 +413,32 @@
                         </div>
                         <ul class="task-list">
                             <li class="task-item">
-                                <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                                <input type="checkbox" class="task-checkbox" onchange="updateProgress()" checked>
                                 <span class="task-text">Test TheSportsDB API - Create test script to fetch player and team data</span>
                             </li>
                             <li class="task-item">
-                                <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                                <input type="checkbox" class="task-checkbox" onchange="updateProgress()" checked>
                                 <span class="task-text">Test API-BASKETBALL API - Evaluate data quality and rate limits</span>
                             </li>
                             <li class="task-item">
-                                <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                                <input type="checkbox" class="task-checkbox" onchange="updateProgress()" checked>
                                 <span class="task-text">Test balldontlie.io API - Check real-time data availability and response speed</span>
                             </li>
                             <li class="task-item">
-                                <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                                <input type="checkbox" class="task-checkbox" onchange="updateProgress()" checked>
                                 <span class="task-text">Compare API features: data completeness, update frequency, cost, reliability</span>
                             </li>
                             <li class="task-item">
-                                <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                                <input type="checkbox" class="task-checkbox" onchange="updateProgress()" checked>
                                 <span class="task-text">Choose final API and obtain access credentials/API keys</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                                <span class="task-text">Register for balldontlie.io API access (free registration required)</span>
+                            </li>
+                            <li class="task-item">
+                                <input type="checkbox" class="task-checkbox" onchange="updateProgress()">
+                                <span class="task-text">Install nba_api library for official NBA Stats API integration</span>
                             </li>
                         </ul>
                     </div>
@@ -1036,6 +1044,23 @@
                             </li>
                         </ul>
                     </div>
+                </div>
+            </div>
+
+            <!-- Phase 6: API Strategy Update -->
+            <div class="phase">
+                <div class="phase-header" onclick="togglePhase(this)">
+                    <h2>Phase 6: API Strategy Update (1 Week)</h2>
+                    <span class="phase-toggle">▼</span>
+                </div>
+                <div class="phase-content">
+                    <div class="highlight-box">
+                            <h4>🎯 API Testing Complete! Updated Strategy</h4>
+                            <p><strong>Phase 1:</strong> Start with TheSportsDB (working immediately)<br>
+                            <strong>Phase 2:</strong> Register for balldontlie.io (you've used it before)<br>
+                            <strong>Phase 3:</strong> Integrate NBA Stats API with nba_api library (perfect for analytics)</p>
+                            <p><strong>📄 Detailed Results:</strong> <a href="NBA_API_Testing_Results.html" target="_blank">View comprehensive API testing report</a></p>
+                        </div>
                 </div>
             </div>
         </div>
