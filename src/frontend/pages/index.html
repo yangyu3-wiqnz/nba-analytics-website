@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Analytics - Homepage</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">🏀 NBA Analytics</div>
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+                    <li><a href="#" class="nav-link" data-page="teams">Teams</a></li>
+                    <li><a href="#" class="nav-link" data-page="players">Players</a></li>
+                    <li><a href="#" class="nav-link" data-page="stats">Stats</a></li>
+                    <li><a href="#" class="nav-link" data-page="games">Games</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>NBA Analytics Dashboard</h1>
+                    <p>Comprehensive NBA statistics, player analysis, and team insights all in one place.</p>
+                    <div class="hero-actions">
+                        <a href="#teams" class="btn btn-primary">Explore Teams</a>
+                        <a href="#players" class="btn btn-secondary">Browse Players</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Stats -->
+        <section class="quick-stats">
+            <div class="container">
+                <h2>Season Overview</h2>
+                <div class="grid grid-4">
+                    <div class="card stat-card">
+                        <h3>Games Played</h3>
+                        <div class="stat-number" id="total-games">1,230</div>
+                    </div>
+                    <div class="card stat-card">
+                        <h3>Active Players</h3>
+                        <div class="stat-number" id="total-players">450</div>
+                    </div>
+                    <div class="card stat-card">
+                        <h3>Teams</h3>
+                        <div class="stat-number" id="total-teams">30</div>
+                    </div>
+                    <div class="card stat-card">
+                        <h3>Avg PPG</h3>
+                        <div class="stat-number" id="avg-ppg">112.5</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Teams -->
+        <section class="featured-teams" id="teams">
+            <div class="container">
+                <h2>Featured Teams</h2>
+                <div class="grid grid-3" id="teams-container">
+                    <!-- Teams will be loaded dynamically -->
+                    <div class="card loading">Loading teams...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Players -->
+        <section class="featured-players" id="players">
+            <div class="container">
+                <h2>Star Players</h2>
+                <div class="grid grid-4" id="players-container">
+                    <!-- Players will be loaded dynamically -->
+                    <div class="card loading">Loading players...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="container">
+                <h2>Search Players</h2>
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        id="player-search" 
+                        placeholder="Search for players..."
+                        class="search-input"
+                    >
+                </div>
+                <div id="search-results" class="search-results"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 NBA Analytics. Data provided by TheSportsDB and other NBA APIs.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

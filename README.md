@@ -1,6 +1,110 @@
-# 🏀 NBA Analytics Website
+# NBA Analytics Website
 
-A comprehensive NBA analytics website built with modern web technologies, designed for both casual basketball fans and data analysts.
+A comprehensive web application for NBA data analysis, statistics, and visualizations.
+
+## Project Structure
+
+```
+web_development/
+├── docs/                          # 📚 Documentation and guides
+│   ├── NBA Website Development Roadmap.html
+│   ├── NBA_API_Setup_Guide.md
+│   └── NBA_API_Testing_Results.html
+├── src/                           # 💻 Source code
+│   ├── frontend/                  # Client-side code
+│   │   ├── components/           # Reusable UI components
+│   │   ├── pages/               # Page components
+│   │   └── assets/              # Static assets (CSS, JS, images)
+│   └── backend/                  # Server-side code
+│       ├── api/                 # API routes and endpoints
+│       ├── models/              # Data models
+│       └── utils/               # Utility functions
+├── scripts/                      # 🔧 Utility scripts
+│   ├── export_sample_data.py    # NBA data export script
+│   └── test_nba_apis.py         # API testing script
+├── data/                         # 📊 Sample data and exports
+│   ├── sample_nba_teams.csv     # NBA teams data
+│   └── sample_nba_players.csv   # NBA players data
+├── tests/                        # 🧪 Test files
+└── README.md                     # This file
+```
+
+## Features
+
+### Current
+- ✅ NBA API integration and testing
+- ✅ Sample data export from TheSportsDB
+- ✅ Interactive project roadmap
+- ✅ Comprehensive API documentation
+
+### Planned
+- 🚀 Real-time NBA statistics dashboard
+- 📈 Advanced analytics and visualizations  
+- 🏀 Player and team comparison tools
+- 📱 Responsive mobile-first design
+- ⚡ Live game tracking and updates
+
+## Getting Started
+
+### Prerequisites
+- Python 3.7+
+- Git
+- Modern web browser
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd web_development
+```
+
+2. Install Python dependencies:
+```bash
+pip install requests pandas
+```
+
+3. Export sample data:
+```bash
+python scripts/export_sample_data.py
+```
+
+4. Test NBA APIs:
+```bash
+python scripts/test_nba_apis.py
+```
+
+## Documentation
+
+- **Project Roadmap**: Open `docs/NBA Website Development Roadmap.html` in your browser
+- **API Guide**: See `docs/NBA_API_Setup_Guide.md`
+- **API Testing Results**: View `docs/NBA_API_Testing_Results.html`
+
+## Data Sources
+
+- **TheSportsDB**: Primary data source (free tier)
+- **balldontlie.io**: Secondary source (requires registration)
+- **NBA Stats API**: Advanced analytics (unofficial)
+
+## Development Workflow
+
+1. **Planning**: Check the interactive roadmap in `docs/`
+2. **API Testing**: Use scripts in `scripts/` to test data sources
+3. **Frontend Development**: Build components in `src/frontend/`
+4. **Backend Development**: Create APIs in `src/backend/`
+5. **Testing**: Write tests in `tests/`
+6. **Documentation**: Update docs in `docs/`
+
+## Contributing
+
+1. Follow the established folder structure
+2. Document all new features and APIs
+3. Test thoroughly before committing
+4. Update the roadmap as tasks are completed
+
+## License
+
+This project is for educational and personal use.
 
 ## 🎯 Project Overview
 

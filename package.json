@@ -1,0 +1,49 @@
+{
+  "name": "nba-analytics-website",
+  "version": "1.0.0",
+  "description": "A comprehensive NBA analytics website with real-time data and visualizations",
+  "main": "src/frontend/assets/js/main.js",
+  "scripts": {
+    "dev": "live-server src/frontend/pages --port=3000",
+    "build": "npm run build:css && npm run build:js",
+    "build:css": "postcss src/frontend/assets/css/main.css -o dist/css/main.min.css",
+    "build:js": "webpack src/frontend/assets/js/main.js -o dist/js/main.min.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint src/frontend/assets/js/**/*.js",
+    "lint:fix": "eslint src/frontend/assets/js/**/*.js --fix",
+    "export-data": "cd scripts && python export_sample_data.py",
+    "test-apis": "cd scripts && python test_nba_apis.py"
+  },
+  "keywords": [
+    "nba",
+    "basketball",
+    "analytics",
+    "statistics",
+    "data-visualization",
+    "sports"
+  ],
+  "author": "NBA Analytics Team",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "jest": "^29.0.0",
+    "live-server": "^1.2.2",
+    "postcss": "^8.4.0",
+    "postcss-cli": "^10.0.0",
+    "webpack": "^5.0.0",
+    "webpack-cli": "^5.0.0"
+  },
+  "dependencies": {
+    "chart.js": "^4.0.0",
+    "axios": "^1.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/nba-analytics-website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/nba-analytics-website/issues"
+  },
+  "homepage": "https://github.com/your-username/nba-analytics-website#readme"
+}
