@@ -1,198 +1,273 @@
-// NBA Analytics App - Main JavaScript
+/**
+ * NBA Analytics Website - Main Application
+ * Handles page navigation, data loading, and UI interactions
+ */
+
 class NBAApp {
     constructor() {
-        this.apiEndpoints = {
-            teams: '/api/teams',
-            players: '/api/players',
-            games: '/api/games',
-            stats: '/api/stats'
-        };
+        this.api = new NBADataAPI();
+        this.currentPage = 'home';
         this.init();
     }
 
-    init() {
-        this.setupEventListeners();
-        this.loadInitialData();
+    async init() {
+        console.log('🏀 NBA Analytics App Starting...');
+        
+        // Set up navigation
+        this.setupNavigation();
+        
+        // Load initial page content
+        await this.loadHomePage();
+        
+        console.log('✅ App initialized successfully');
     }
 
-    setupEventListeners() {
-        // Navigation
+    setupNavigation() {
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = e.target.dataset.page;
+                this.navigateToPage(page);
+            });
+        });
+    }
+
+    async navigateToPage(page) {
+        // Update active nav link
         document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', this.handleNavigation.bind(this));
+            link.classList.remove('active');
         });
+        document.querySelector(`[data-page="${page}"]`)?.classList.add('active');
 
-        // Search functionality
-        const searchInput = document.getElementById('player-search');
-        if (searchInput) {
-            searchInput.addEventListener('input', this.debounce(this.handleSearch.bind(this), 300));
-        }
-
-        // Filter controls
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', this.handleFilter.bind(this));
-        });
-    }
-
-    async loadInitialData() {
-        try {
-            // Load teams data
-            const teams = await this.fetchData(this.apiEndpoints.teams);
-            this.renderTeams(teams);
-
-            // Load featured players
-            const players = await this.fetchData(`${this.apiEndpoints.players}?featured=true`);
-            this.renderFeaturedPlayers(players);
-
-        } catch (error) {
-            console.error('Error loading initial data:', error);
-            this.showError('Failed to load NBA data. Please try again later.');
+        // Load page content
+        switch(page) {
+            case 'home':
+                await this.loadHomePage();
+                break;
+            case 'teams':
+                await this.loadTeamsPage();
+                break;
+            case 'players':
+                await this.loadPlayersPage();
+                break;
+            default:
+                this.showComingSoon(page);
         }
     }
 
-    async fetchData(url) {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return await response.json();
-    }
-
-    renderTeams(teams) {
-        const container = document.getElementById('teams-container');
-        if (!container) return;
-
-        container.innerHTML = teams.map(team => `
-            <div class="card team-card" data-team-id="${team.id}">
-                <img src="${team.logo}" alt="${team.name} logo" class="team-logo">
-                <h3>${team.name}</h3>
-                <p class="team-record">${team.wins}-${team.losses}</p>
-                <button class="btn btn-sm" onclick="app.viewTeam(${team.id})">
-                    View Team
-                </button>
+    async loadHomePage() {
+        console.log('Loading homepage...');
+        const mainContent = document.getElementById('main-content');
+        
+        // Show loading state
+        mainContent.innerHTML = `
+            <div class="loading-container">
+                <div class="loading-spinner"></div>
+                <p>Loading NBA data...</p>
             </div>
-        `).join('');
+        `;
+
+        try {
+            // Fetch data in parallel
+            const [teams, featuredPlayers] = await Promise.all([
+                this.api.fetchTeams(),
+                this.api.getFeaturedPlayers()
+            ]);
+
+            // Render homepage
+            mainContent.innerHTML = this.renderHomePage(teams, featuredPlayers);
+            
+            console.log(`✅ Loaded ${teams.length} teams and ${featuredPlayers.length} featured players`);
+        } catch (error) {
+            console.error('Error loading homepage:', error);
+            this.showError('Failed to load NBA data. Please try again.');
+        }
     }
 
-    renderFeaturedPlayers(players) {
-        const container = document.getElementById('players-container');
-        if (!container) return;
-
-        container.innerHTML = players.map(player => `
-            <div class="card player-card" data-player-id="${player.id}">
-                <img src="${player.photo}" alt="${player.name}" class="player-photo">
-                <h3>${player.name}</h3>
-                <p class="player-team">${player.team}</p>
-                <p class="player-position">${player.position}</p>
-                <div class="player-stats">
-                    <span>PPG: ${player.ppg}</span>
-                    <span>RPG: ${player.rpg}</span>
-                    <span>APG: ${player.apg}</span>
+    renderHomePage(teams, featuredPlayers) {
+        return `
+            <div class="hero-section">
+                <div class="container">
+                    <h1 class="hero-title">NBA Analytics Hub</h1>
+                    <p class="hero-subtitle">Your ultimate destination for NBA statistics, team insights, and player analytics</p>
+                    <div class="hero-stats">
+                        <div class="stat-card">
+                            <div class="stat-number">${teams.length}</div>
+                            <div class="stat-label">NBA Teams</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">${featuredPlayers.length}</div>
+                            <div class="stat-label">Featured Players</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">Live</div>
+                            <div class="stat-label">Data Updates</div>
+                        </div>
+                    </div>
                 </div>
-                <button class="btn btn-sm" onclick="app.viewPlayer(${player.id})">
-                    View Player
-                </button>
             </div>
-        `).join('');
+
+            <section class="featured-teams">
+                <div class="container">
+                    <h2 class="section-title">NBA Teams</h2>
+                    <div class="teams-grid">
+                        ${teams.slice(0, 8).map(team => this.renderTeamCard(team)).join('')}
+                    </div>
+                    <div class="section-footer">
+                        <button class="btn btn-secondary" onclick="app.navigateToPage('teams')">View All Teams</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="featured-players">
+                <div class="container">
+                    <h2 class="section-title">Featured Players</h2>
+                    <div class="players-grid">
+                        ${featuredPlayers.map(player => this.renderPlayerCard(player)).join('')}
+                    </div>
+                    <div class="section-footer">
+                        <button class="btn btn-secondary" onclick="app.navigateToPage('players')">View All Players</button>
+                    </div>
+                </div>
+            </section>
+        `;
     }
 
-    handleNavigation(event) {
-        event.preventDefault();
-        const page = event.target.dataset.page;
-        this.loadPage(page);
+    renderTeamCard(team) {
+        return `
+            <div class="card team-card" data-team-id="${team.idTeam}">
+                <div class="team-logo">
+                    ${team.strTeamBadge ? 
+                        `<img src="${team.strTeamBadge}" alt="${team.strTeam}" loading="lazy">` :
+                        `<div class="team-initial">${team.strTeam.charAt(0)}</div>`
+                    }
+                </div>
+                <div class="team-info">
+                    <h3 class="team-name">${team.strTeam}</h3>
+                    <p class="team-league">${team.strLeague}</p>
+                    <p class="team-division">${team.strDivision || 'NBA'}</p>
+                </div>
+                <div class="team-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Founded</span>
+                        <span class="stat-value">${team.intFormedYear || 'N/A'}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Stadium</span>
+                        <span class="stat-value">${team.strStadium || 'N/A'}</span>
+                    </div>
+                </div>
+            </div>
+        `;
     }
 
-    handleSearch(event) {
-        const query = event.target.value.trim();
-        if (query.length >= 2) {
-            this.searchPlayers(query);
-        }
+    renderPlayerCard(player) {
+        return `
+            <div class="card player-card" data-player-id="${player.idPlayer}">
+                <div class="player-header">
+                    <div class="player-photo">
+                        ${player.strThumb ? 
+                            `<img src="${player.strThumb}" alt="${player.strPlayer}" loading="lazy">` :
+                            `<div class="player-initial">${player.strPlayer.charAt(0)}</div>`
+                        }
+                    </div>
+                    <div class="player-info">
+                        <h3 class="player-name">${player.strPlayer}</h3>
+                        <p class="player-team">${player.strTeam}</p>
+                        <p class="player-position">${player.strPosition || 'Player'}</p>
+                    </div>
+                </div>
+                <div class="player-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Nationality</span>
+                        <span class="detail-value">${player.strNationality || 'N/A'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Born</span>
+                        <span class="detail-value">${player.dateBorn || 'N/A'}</span>
+                    </div>
+                </div>
+            </div>
+        `;
     }
 
-    handleFilter(event) {
-        const filterType = event.target.dataset.filter;
-        const filterValue = event.target.dataset.value;
-        this.applyFilter(filterType, filterValue);
-    }
-
-    async searchPlayers(query) {
+    async loadTeamsPage() {
+        const mainContent = document.getElementById('main-content');
+        mainContent.innerHTML = '<div class="loading-container"><div class="loading-spinner"></div><p>Loading all NBA teams...</p></div>';
+        
         try {
-            const players = await this.fetchData(`${this.apiEndpoints.players}?search=${encodeURIComponent(query)}`);
-            this.renderSearchResults(players);
+            const teams = await this.api.fetchTeams();
+            mainContent.innerHTML = `
+                <div class="page-header">
+                    <div class="container">
+                        <h1>All NBA Teams</h1>
+                        <p>Complete roster of ${teams.length} NBA teams</p>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="teams-grid">
+                        ${teams.map(team => this.renderTeamCard(team)).join('')}
+                    </div>
+                </div>
+            `;
         } catch (error) {
-            console.error('Search error:', error);
+            this.showError('Failed to load teams data');
         }
     }
 
-    applyFilter(type, value) {
-        // Update active filter UI
-        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-        event.target.classList.add('active');
-
-        // Apply filter logic
-        const items = document.querySelectorAll(`.${type}-item`);
-        items.forEach(item => {
-            const shouldShow = value === 'all' || item.dataset[type] === value;
-            item.style.display = shouldShow ? 'block' : 'none';
-        });
+    async loadPlayersPage() {
+        const mainContent = document.getElementById('main-content');
+        mainContent.innerHTML = '<div class="loading-container"><div class="loading-spinner"></div><p>Loading featured players...</p></div>';
+        
+        try {
+            const players = await this.api.getFeaturedPlayers();
+            mainContent.innerHTML = `
+                <div class="page-header">
+                    <div class="container">
+                        <h1>Featured NBA Players</h1>
+                        <p>Top players from around the league</p>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="players-grid">
+                        ${players.map(player => this.renderPlayerCard(player)).join('')}
+                    </div>
+                </div>
+            `;
+        } catch (error) {
+            this.showError('Failed to load players data');
+        }
     }
 
-    viewTeam(teamId) {
-        // Navigate to team page
-        window.location.href = `/team/${teamId}`;
-    }
-
-    viewPlayer(playerId) {
-        // Navigate to player page
-        window.location.href = `/player/${playerId}`;
+    showComingSoon(page) {
+        const mainContent = document.getElementById('main-content');
+        mainContent.innerHTML = `
+            <div class="coming-soon">
+                <div class="container">
+                    <h1>🚧 Coming Soon</h1>
+                    <p>The ${page} page is under development.</p>
+                    <button class="btn btn-primary" onclick="app.navigateToPage('home')">Back to Home</button>
+                </div>
+            </div>
+        `;
     }
 
     showError(message) {
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'error-message';
-        errorDiv.textContent = message;
-        document.body.appendChild(errorDiv);
-
-        setTimeout(() => {
-            errorDiv.remove();
-        }, 5000);
-    }
-
-    // Utility function to debounce search input
-    debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
+        const mainContent = document.getElementById('main-content');
+        mainContent.innerHTML = `
+            <div class="error-container">
+                <div class="container">
+                    <h2>⚠️ Error</h2>
+                    <p>${message}</p>
+                    <button class="btn btn-primary" onclick="location.reload()">Retry</button>
+                </div>
+            </div>
+        `;
     }
 }
 
-// Initialize the app when DOM is loaded
+// Initialize app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.app = new NBAApp();
 });
-
-// Chart utilities for data visualization
-class ChartUtils {
-    static createPlayerStatsChart(containerId, playerData) {
-        // Implementation for player stats chart
-        // Using Chart.js or similar library
-    }
-
-    static createTeamComparisonChart(containerId, teamData) {
-        // Implementation for team comparison chart
-    }
-
-    static createSeasonTrendsChart(containerId, seasonData) {
-        // Implementation for season trends chart
-    }
-}
-
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { NBAApp, ChartUtils };
-}
