@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NBA Teams Debug</title>
+</head>
+<body>
+    <h2>NBA Teams Debug</h2>
+    <div id="debug-output"></div>
+    
+    <script>
+        async function debugTeams() {
+            try {
+                const response = await fetch('https://www.thesportsdb.com/api/v1/json/3/search_all_teams.php?l=NBA');
+                const data = await response.json();
+                
+                if (data.teams && data.teams.length > 0) {
+                    const first3Teams = data.teams.slice(0, 3);
+                    let output = `<h3>Found ${data.teams.length} teams. First 3:</h3>`;
+                    
+                    first3Teams.forEach(team => {
+                        output += `
+                            <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+                                <h4>${team.strTeam}</h4>
+                                <p><strong>Team Logo:</strong> ${team.strTeamLogo || 'None'}</p>
+                                <p><strong>Team Badge:</strong> ${team.strTeamBadge || 'None'}</p>
+                                <p><strong>Team Banner:</strong> ${team.strTeamBanner || 'None'}</p>
+                                ${team.strTeamBadge ? `<img src="${team.strTeamBadge}" style="width: 50px; height: 50px;">` : ''}
+                                ${team.strTeamLogo ? `<img src="${team.strTeamLogo}" style="width: 50px; height: 50px;">` : ''}
+                            </div>
+                        `;
+                    });
+                    
+                    document.getElementById('debug-output').innerHTML = output;
+                } else {
+                    document.getElementById('debug-output').innerHTML = 'No teams found';
+                }
+            } catch (error) {
+                document.getElementById('debug-output').innerHTML = `Error: ${error.message}`;
+            }
+        }
+        
+        debugTeams();
+    </script>
+</body>
+</html>

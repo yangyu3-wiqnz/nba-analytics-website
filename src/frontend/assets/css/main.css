@@ -75,9 +75,21 @@ body {
     transition: all 0.3s ease;
 }
 
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+/* Card Hover Effects */
+.team-card, .player-card {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.team-card:hover, .player-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border-color: var(--primary-color);
+}
+
+.team-card:hover .team-name,
+.player-card:hover .player-name {
+    color: var(--primary-color);
 }
 
 /* Header Styles */
@@ -123,18 +135,18 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 300px;
-    text-align: center;
+    min-height: 200px;
+    padding: 40px;
 }
 
 .loading-spinner {
-    width: 50px;
-    height: 50px;
-    border: 4px solid #e2e8f0;
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
     border-top: 4px solid var(--primary-color);
     border-radius: 50%;
     animation: spin 1s linear infinite;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 @keyframes spin {
@@ -167,28 +179,34 @@ body {
 
 .hero-stats {
     display: flex;
+    gap: 24px;
     justify-content: center;
-    gap: 40px;
+    margin-top: 32px;
     flex-wrap: wrap;
 }
 
-.stat-card {
+.hero-stats .stat-card {
     background: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 10px;
     backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
     min-width: 120px;
 }
 
-.stat-number {
+.hero-stats .stat-number {
     font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 5px;
+    color: white;
+    margin-bottom: 4px;
 }
 
-.stat-label {
+.hero-stats .stat-label {
     font-size: 0.9rem;
-    opacity: 0.8;
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 /* Grid Layouts */

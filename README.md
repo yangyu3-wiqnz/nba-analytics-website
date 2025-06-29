@@ -1,138 +1,188 @@
-# NBA Analytics Website
+# NBA Analytics API Platform
 
-A comprehensive web application for NBA data analysis, statistics, and visualizations.
+A backend-focused NBA data analytics platform for practicing data engineering, API development, and machine learning skills. Features a minimal frontend for testing and demonstration.
+
+## 🎯 Project Focus
+
+**Primary Goal**: Backend development and data analysis practice  
+**Secondary Goal**: Simple frontend for API testing  
+**Target Skills**: Data analysis → Machine Learning Engineering
 
 ## Project Structure
 
 ```
 web_development/
-├── docs/                          # 📚 Documentation and guides
-│   ├── NBA Website Development Roadmap.html
+├── docs/                          # 📚 Documentation and roadmaps
+│   ├── NBA Website Development Roadmap.md  # Updated backend-focused roadmap
 │   ├── NBA_API_Setup_Guide.md
-│   └── NBA_API_Testing_Results.html
+│   └── src-folder-explained.md
 ├── src/                           # 💻 Source code
-│   ├── frontend/                  # Client-side code
-│   │   ├── components/           # Reusable UI components
-│   │   ├── pages/               # Page components
-│   │   └── assets/              # Static assets (CSS, JS, images)
-│   └── backend/                  # Server-side code
-│       ├── api/                 # API routes and endpoints
-│       ├── models/              # Data models
-│       └── utils/               # Utility functions
-├── scripts/                      # 🔧 Utility scripts
-│   ├── export_sample_data.py    # NBA data export script
-│   └── test_nba_apis.py         # API testing script
-├── data/                         # 📊 Sample data and exports
-│   ├── sample_nba_teams.csv     # NBA teams data
-│   └── sample_nba_players.csv   # NBA players data
-├── tests/                        # 🧪 Test files
+│   ├── frontend/                  # Simple testing interface
+│   │   ├── pages/                # Basic HTML pages
+│   │   │   ├── index.html        # Original demo (legacy)
+│   │   │   └── api-test.html     # New API testing interface
+│   │   └── assets/               # Static assets
+│   │       ├── css/             # Simple Bootstrap styling
+│   │       └── js/              # Vanilla JavaScript for API testing
+│   └── backend/                  # Main focus - FastAPI development
+│       ├── api/                 # REST API endpoints (future)
+│       ├── models/              # SQLAlchemy models (future)
+│       ├── utils/               # Data processing utilities (future)
+│       └── ml/                  # Machine learning models (future)
+├── scripts/                      # 🔧 Data processing and testing scripts
+├── data/                         # 📊 Sample data and analysis
+├── tests/                        # 🧪 API and backend testing
 └── README.md                     # This file
 ```
 
-## Features
+## 🚀 Quick Start
 
-### Current
-- ✅ NBA API integration and testing
-- ✅ Sample data export from TheSportsDB
-- ✅ Interactive project roadmap
-- ✅ Comprehensive API documentation
+### Current Testing Interface
+1. Open `src/frontend/pages/api-test.html` in your browser
+2. Test NBA APIs and explore data structure
+3. Plan your FastAPI backend architecture
 
-### Planned
-- 🚀 Real-time NBA statistics dashboard
-- 📈 Advanced analytics and visualizations  
-- 🏀 Player and team comparison tools
-- 📱 Responsive mobile-first design
-- ⚡ Live game tracking and updates
-
-## Getting Started
-
-### Prerequisites
-- Python 3.7+
-- Git
-- Modern web browser
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd web_development
-```
-
-2. Install Python dependencies:
-```bash
-pip install requests pandas
-```
-
-3. Export sample data:
-```bash
-python scripts/export_sample_data.py
-```
-
-4. Test NBA APIs:
-```bash
-python scripts/test_nba_apis.py
-```
-
-## Documentation
-
-- **Project Roadmap**: Open `docs/NBA Website Development Roadmap.html` in your browser
-- **API Guide**: See `docs/NBA_API_Setup_Guide.md`
-- **API Testing Results**: View `docs/NBA_API_Testing_Results.html`
-
-## Data Sources
-
-- **TheSportsDB**: Primary data source (free tier)
-- **balldontlie.io**: Secondary source (requires registration)
-- **NBA Stats API**: Advanced analytics (unofficial)
-
-## Development Workflow
-
-1. **Planning**: Check the interactive roadmap in `docs/`
-2. **API Testing**: Use scripts in `scripts/` to test data sources
-3. **Frontend Development**: Build components in `src/frontend/`
-4. **Backend Development**: Create APIs in `src/backend/`
-5. **Testing**: Write tests in `tests/`
-6. **Documentation**: Update docs in `docs/`
-
-## Contributing
-
-1. Follow the established folder structure
-2. Document all new features and APIs
-3. Test thoroughly before committing
-4. Update the roadmap as tasks are completed
-
-## License
-
-This project is for educational and personal use.
-
-## 🎯 Project Overview
-
-This project combines real-time NBA data with advanced analytics to create an interactive platform for exploring basketball statistics, player comparisons, and team performance metrics.
-
-## 🚀 Features
-
-### Core Features
-- **Advanced Player Search** - Filter by position, team, statistics
-- **Detailed Player Profiles** - Stats, bio, photos, career highlights  
-- **Team Pages** - Rosters and comprehensive team statistics
-- **Live Scores & Schedules** - Real-time game information
-- **Interactive Visualizations** - Charts and graphs for data analysis
-- **Player Comparison Tools** - Side-by-side statistical analysis
-
-### Target Audiences
-- **Casual Fans**: Easy-to-use interface with visual stats and engaging content
-- **Data Analysts**: Advanced metrics, data export capabilities, and detailed statistics
+### Next Steps (Backend Development)
+1. Set up FastAPI project structure
+2. Design PostgreSQL database schema  
+3. Build data ingestion pipelines
+4. Create REST API endpoints
+5. Implement ML models for predictions
 
 ## 🛠️ Technology Stack
 
-- **Backend**: Python with FastAPI
-- **Frontend**: React with TypeScript
-- **Database**: PostgreSQL
+### Backend (Primary Focus)
+- **Framework**: FastAPI (Python)
+- **Database**: PostgreSQL with SQLAlchemy ORM
+- **Data Processing**: Pandas, NumPy, Scikit-learn
 - **Caching**: Redis
-- **Data Processing**: Pandas & SQLAlchemy
+- **Background Tasks**: Celery
 - **Containerization**: Docker & Docker Compose
-- **Visualizations**: Plotly.js / Chart.js
+
+### Frontend (Minimal)
+- **Framework**: Vanilla HTML/CSS/JavaScript
+- **Styling**: Bootstrap 5 (no customization needed)
+- **Charts**: Chart.js (simple data visualization)
+- **Purpose**: API testing and basic data display only
+
+### Data Sources
+- **TheSportsDB**: Free NBA team and player data
+- **balldontlie.io**: NBA-specific statistics API
+- **Future**: Additional APIs for comprehensive data
+## 🎯 Learning Objectives
+
+### Backend Development Skills
+- ✅ REST API design and implementation
+- ✅ Database schema design and optimization
+- ✅ Data pipeline architecture
+- ✅ API authentication and security
+- ✅ Performance optimization and caching
+- ✅ API documentation and testing
+
+### Data Analysis & ML Engineering
+- ✅ Data ingestion from multiple sources
+- ✅ Data cleaning and validation
+- ✅ Statistical analysis and metrics calculation
+- ✅ Machine learning model development
+- ✅ Model deployment and monitoring
+- ✅ Predictive analytics implementation
+
+### DevOps & Deployment
+- ✅ Docker containerization
+- ✅ Database migration strategies
+- ✅ Environment configuration management
+- ✅ Monitoring and logging setup
+- ✅ Performance testing and optimization
+
+## � Development Phases
+
+### Phase 1: Current (API Exploration)
+- ✅ NBA API research and testing
+- ✅ Simple frontend for API testing
+- ✅ Data structure analysis
+- ✅ Backend architecture planning
+
+### Phase 2: Backend Foundation (Next)
+- 🔲 FastAPI project setup
+- 🔲 PostgreSQL database design
+- 🔲 Data ingestion pipelines
+- 🔲 Core API endpoints
+- 🔲 Authentication system
+
+### Phase 3: Advanced Analytics
+- 🔲 Advanced statistical calculations
+- 🔲 Data visualization endpoints
+- 🔲 Performance optimization
+- 🔲 Caching strategies
+
+### Phase 4: Machine Learning
+- 🔲 Predictive models development
+- 🔲 Model deployment infrastructure
+- 🔲 Real-time predictions API
+- 🔲 Model monitoring and retraining
+
+## 🔧 Current Features
+
+### API Testing Interface
+- Interactive testing of NBA APIs
+- Response visualization and analysis
+- Data structure exploration
+- Basic charting capabilities
+- Endpoint testing tools
+
+### Sample Data Analysis
+- NBA teams and players data export
+- Statistical analysis examples
+- Data quality assessment
+- API response comparison
+
+## 🚀 Getting Started
+
+### 1. Explore Current Interface
+```bash
+# Open the API testing interface
+open src/frontend/pages/api-test.html
+```
+
+### 2. Test NBA APIs
+- Use the testing interface to explore TheSportsDB API
+- Analyze data structures and response formats
+- Plan your backend data models
+
+### 3. Plan Backend Architecture
+- Review the updated roadmap in `docs/`
+- Design your database schema
+- Plan API endpoint structure
+
+## 📚 Documentation
+
+- **[Updated Roadmap](docs/NBA%20Website%20Development%20Roadmap.md)**: Backend-focused development plan
+- **[API Setup Guide](docs/NBA_API_Setup_Guide.md)**: NBA API integration guide
+- **[Src Folder Guide](docs/src-folder-explained.md)**: Project structure explanation
+
+## 🎓 Skills Development Focus
+
+This project is designed to help you transition from **data analysis** to **machine learning engineering** by focusing on:
+
+1. **Backend API Development** (70% of effort)
+2. **Database Design & Optimization** (20% of effort)  
+3. **Simple Frontend for Testing** (10% of effort)
+
+The minimal frontend approach allows you to concentrate on building robust, scalable backend systems while still having a way to test and demonstrate your APIs.
+
+## 🔄 Next Steps
+
+1. **Set up FastAPI development environment**
+2. **Design PostgreSQL database schema for NBA data**
+3. **Build data ingestion pipelines from multiple APIs**
+4. **Create comprehensive REST API endpoints**
+5. **Implement machine learning models for predictions**
+6. **Add comprehensive testing and documentation**
+
+---
+
+**Focus**: Building production-ready backend systems and data analysis skills for ML engineering career development.
+
 
 ## 📊 Data Sources
 

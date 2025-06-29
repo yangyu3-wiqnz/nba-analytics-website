@@ -1,191 +1,251 @@
-NBA Website Development Roadmap
-This roadmap outlines the key phases and steps to build a feature-rich NBA website with player search functionality, similar to the official NBA site.
+NBA Analytics & API Development Roadmap
+This roadmap outlines building an NBA data analytics platform focused on backend development, database management, APIs, and machine learning - perfect for practicing data analyst and ML engineering skills with a minimal frontend.
 
 Phase 1: Planning & Discovery (1-2 Weeks)
-The goal of this phase is to define the project's scope, goals, and technical requirements.
+Define the project as a **data-focused backend platform** with a simple frontend for testing and demonstration.
 
-1.1. Define Core Features:
+1.1. Define Core Features (Backend Focus):
 
-Must-Haves: Player search, player profiles (stats, bio, photos), team pages, scores and schedules.
+**Must-Haves**: 
+- REST API for player/team data with advanced analytics
+- Database design and optimization for NBA statistics
+- Data ingestion pipelines from multiple NBA APIs
+- Machine learning models for player performance prediction
+- Statistical analysis endpoints (advanced metrics, trends, comparisons)
 
-Nice-to-Haves: News articles, video highlights, historical data, user accounts (for saving favorite players/teams).
+**Nice-to-Haves**: 
+- Real-time data streaming
+- Recommendation systems for similar players
+- Time-series forecasting for season predictions
+- Data export APIs for external analysis tools
 
-1.2. Identify Target Audience:
+1.2. Target Use Case:
+- **Primary**: Backend API development and data engineering practice
+- **Secondary**: Simple web interface for testing API endpoints and viewing results
+- **Focus**: Data analysis, database optimization, and ML model deployment
 
-Who are you building this for? Casual fans, fantasy players, data analysts? This will influence the design and features.
+1.3. Secure Multiple NBA Data Sources:
+Research and integrate multiple APIs for comprehensive data:
+- **TheSportsDB**: Free, good for basic info and team data
+- **balldontlie.io**: Free NBA-specific API for detailed player stats
+- **API-BASKETBALL**: Freemium for advanced statistics
+- **ESPN API**: For real-time scores and news (if available)
 
-1.3. Secure an NBA Data Source:
+1.4. Technology Stack (Data & Backend Focused):
 
-Research and choose a reliable API for NBA data. Popular options include:
+**Backend**: **FastAPI** (Python) - Modern, fast, automatic API documentation, perfect for data APIs
+**Database**: **PostgreSQL** - Your database expertise + excellent for analytics and complex queries
+**Data Processing**: **Pandas, NumPy, Scikit-learn** - Leverage your data analysis and ML skills
+**Caching**: **Redis** - For API response caching and real-time data
+**Containerization**: **Docker & Docker Compose** - Consistent development environment
 
-TheSportsDB: Free, good for basic info.
+**Frontend**: **Vanilla HTML/CSS/JavaScript** - Minimal, focused only on API testing and basic data display
+- Single-page application for simplicity
+- Bootstrap for quick, clean styling without complexity
+- Charts.js for basic data visualization
+- No complex frameworks - just enough to test your APIs
 
-API-BASKETBALL: Freemium, offers more detailed data.
-
-balldontlie.io: A free API specifically for NBA data.
-
-1.4. Technology Stack Selection (Optimized for Your Skills):
-
-Frontend: React with TypeScript - Provides type safety and excellent ecosystem for data visualization.
-
-Backend: **FastAPI** (Python) - Modern, fast, with automatic API documentation and excellent type hints.
-
-Database: **PostgreSQL** - Leverages your database expertise, excellent for analytics and complex queries.
-
-Data Processing: **Pandas** and **SQLAlchemy** - Utilize your data analysis skills.
-
-Containerization: **Docker** and **Docker Compose** - Use your existing Docker knowledge for consistent environments.
-
-Additional Tools:
-- **Redis** for caching NBA API responses
+**Data & ML Tools**:
+- **SQLAlchemy** for database ORM and query optimization
 - **Alembic** for database migrations
-- **Plotly/Chart.js** for data visualizations
+- **Celery** for background tasks and data processing
+- **Jupyter Notebooks** for data exploration and model development
+- **MLflow** for ML model tracking and deployment
+
+1.5. Architecture Focus:
+- **80% Backend/Data/ML**: API development, database design, data pipelines, ML models
+- **20% Frontend**: Simple interface for testing and demonstrating your backend capabilities
+
+Phase 2: Backend Development & Data Infrastructure (4-5 Weeks)
+This is the **core phase** - building robust APIs, databases, and data processing pipelines.
+
+2.1. Development Environment Setup:
+
+Initialize FastAPI project with proper structure for scalability
+Configure PostgreSQL with optimized settings for analytics workloads
+Set up Redis for caching and session management
+Create Docker Compose environment for local development
+
+Core dependencies (requirements.txt):
+```
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+redis==5.0.1
+pandas==2.1.3
+numpy==1.25.2
+scikit-learn==1.3.2
+celery==5.3.4
+alembic==1.12.1
+pydantic==2.5.0
+httpx==0.25.2
+python-multipart==0.0.6
+```
+
+2.2. Database Architecture & Optimization:
+
+Design comprehensive schema for NBA analytics:
+- Players, Teams, Games, PlayerStats, TeamStats tables
+- Indexes for common query patterns (player_id, game_date, season)
+- Materialized views for complex aggregations
+- Partitioning strategies for large historical datasets
+
+Leverage your database expertise:
+- Query optimization with EXPLAIN ANALYZE
+- Index strategies for analytical queries
+- Database performance monitoring setup
+
+2.3. API Development & Data Integration:
+
+Build comprehensive REST API with FastAPI:
+- `/api/players` - Player search and filtering with advanced parameters
+- `/api/players/{id}/stats` - Detailed player statistics with date ranges
+- `/api/teams/{id}/analytics` - Team performance analytics
+- `/api/games` - Game data with filtering and aggregation options
+- `/api/analytics/advanced` - Custom analytics endpoints
+
+Data pipeline development:
+- Background tasks with Celery for data ingestion
+- Multiple API source integration with error handling
+- Data validation and cleaning using Pandas
+- Automated data quality checks
+
+2.4. Advanced Analytics Layer:
+
+Statistical analysis using your data skills:
+- Calculate advanced NBA metrics (PER, True Shooting %, Usage Rate, etc.)
+- Player similarity algorithms using clustering
+- Team performance trends and seasonal analysis
+- Comparative analytics (player vs league average, team rankings)
+
+Phase 3: Machine Learning & Predictive Analytics (2-3 Weeks)
+Apply your ML engineering interests with NBA data.
+
+3.1. Model Development:
+
+Player Performance Prediction:
+- Predict next game performance based on recent trends
+- Season outcome forecasting using historical data
+- Injury risk assessment using game load and performance metrics
+
+Recommendation Systems:
+- Similar player finder using clustering algorithms
+- Fantasy basketball recommendations
+- Trade impact analysis
+
+3.2. Model Deployment:
+
+Set up MLflow for experiment tracking and model versioning
+Create API endpoints for model predictions (`/api/ml/predict`)
+Implement model monitoring and performance tracking
+Automated model retraining pipelines
+
+3.3. Data Science Integration:
+
+Jupyter notebook environment for model development
+Feature engineering pipelines using your data analysis skills
+A/B testing framework for model comparison
+Statistical significance testing for predictions
+
+Phase 4: Simple Frontend for API Testing (1 Week)
+Minimal frontend focused on demonstrating your backend capabilities.
 
-1.5. Wireframing & Design:
+4.1. Single-Page Application:
 
-Create low-fidelity wireframes for key pages (Homepage, Player Search, Player Profile).
+**Vanilla HTML/CSS/JavaScript** - No complex frameworks
+Bootstrap for clean, responsive design without customization overhead
+Basic pages:
+- API testing interface (like Postman but simpler)
+- Data visualization dashboard using Chart.js
+- Simple player/team search to test your APIs
 
-Develop a visual style guide (colors, fonts, logos).
+4.2. API Integration Testing:
 
-Phase 2: Backend Development (3-4 Weeks)
-This phase focuses on building the server-side logic and database structure.
+Direct API calls from JavaScript to test your endpoints
+Display JSON responses in formatted, readable way
+Basic error handling and loading states
+Simple forms for testing different API parameters
 
-2.1. Set Up Development Environment:
+4.3. Data Visualization:
 
-Initialize your project with FastAPI and set up version control (Git).
+Chart.js integration for basic charts:
+- Player performance trends (line charts)
+- Team comparison charts (bar charts)
+- Simple statistical dashboards
+Focus on functionality, not aesthetics
 
-Configure PostgreSQL database and Redis cache.
+Phase 5: Testing & Deployment (1-2 Weeks)
+Focus on backend testing and production deployment.
 
-Set up Docker containers for development consistency.
+5.1. Backend Testing:
 
-Create virtual environment and requirements.txt with core dependencies:
-- fastapi
-- uvicorn
-- sqlalchemy
-- psycopg2-binary
-- redis
-- pandas
-- pydantic
-- alembic
+**Unit Tests**: Test API endpoints, database models, and data processing functions
+**Integration Tests**: Test data pipeline integrity and API-to-database workflows
+**Performance Tests**: Load testing your APIs and database queries
+**Data Quality Tests**: Validate data accuracy and completeness
 
-2.2. API Integration & Data Pipeline:
+Testing tools: pytest, pytest-asyncio, httpx for API testing
 
-Build a service layer in your backend to communicate with the chosen NBA data API.
+5.2. Deployment & DevOps:
 
-Create FastAPI endpoints with proper typing (e.g., /api/players, /api/teams/{id}).
+**Docker containerization** for production deployment
+**Database migration** strategies using Alembic
+**Environment configuration** management (dev/staging/prod)
+**API documentation** with FastAPI's automatic OpenAPI/Swagger docs
 
-Implement data validation using Pydantic models.
+Deploy to cloud platforms:
+- **Backend**: Railway, Render, or DigitalOcean for FastAPI
+- **Database**: PostgreSQL on cloud (AWS RDS, DigitalOcean Managed DB)
+- **Frontend**: Netlify or Vercel for simple static hosting
 
-Set up Redis caching for API responses to improve performance.
+5.3. Monitoring & Performance:
 
-Create scheduled data sync jobs using your data analysis skills.
+API performance monitoring and logging
+Database query performance monitoring
+Error tracking and alerting
+Automated health checks for your services
 
-2.3. Database Modeling:
+Phase 6: Advanced Features & Portfolio Development (Ongoing)
+Showcase your data and backend skills for career advancement.
 
-Design your database schema using SQLAlchemy ORM models. Create tables for players, teams, games, and player statistics.
+6.1. Advanced Data Engineering:
 
-Leverage your database expertise to design efficient indexes and relationships.
+Real-time data streaming with Apache Kafka or similar
+Data warehouse setup for historical analysis
+ETL pipeline automation using Apache Airflow
+API rate limiting and caching optimization
 
-Use Alembic for database migrations and version control.
+6.2. Machine Learning Engineering:
 
-Decide what data to cache locally versus fetching live from APIs based on update frequency.
+Model serving infrastructure using FastAPI
+Automated model retraining pipelines
+Feature store implementation for ML features
+A/B testing framework for model evaluation
 
-2.4. Build the Player Search Logic:
+6.3. Portfolio Documentation:
 
-Implement the backend logic for the search functionality. This will involve querying your database or the external API based on user input.
+**API Documentation**: Comprehensive OpenAPI documentation
+**Architecture Documentation**: System design and database schema
+**Data Analysis Reports**: Jupyter notebooks with insights
+**Performance Metrics**: Demonstrate optimization achievements
+**GitHub Portfolio**: Clean, well-documented repository structure
 
-Phase 2.5: Data Analytics Layer (1-2 Weeks)
-Leverage your data analysis expertise to add insights and analytics.
+6.4. Skills Demonstration:
 
-2.5.1. Advanced Statistics:
+Database optimization case studies
+API design best practices examples
+Data pipeline architecture documentation
+ML model deployment examples
+Performance improvement metrics
 
-Create calculated fields for advanced NBA metrics (PER, True Shooting %, etc.).
+## Key Benefits for Your Career Goals:
 
-Build aggregation functions using Pandas for team and player comparisons.
+✅ **Backend Development**: Comprehensive API development experience
+✅ **Database Skills**: Advanced PostgreSQL optimization and design
+✅ **Data Analysis**: Real-world data processing and analytics
+✅ **ML Engineering**: End-to-end model development and deployment
+✅ **DevOps**: Docker, deployment, and monitoring experience
+✅ **Portfolio**: Demonstrable skills for data analyst and ML engineer roles
 
-Implement statistical analysis endpoints for trends and insights.
-
-2.5.2. Data Visualization Services:
-
-Design backend endpoints that prepare data for visualizations.
-
-Create data transformation functions for charts and graphs.
-
-Implement caching strategies for computationally expensive analytics.
-
-2.5.3. Performance Optimization:
-
-Use your database skills to optimize queries with proper indexing.
-
-Implement database query optimization for large datasets.
-
-Set up monitoring for query performance and API response times.
-
-Phase 3: Frontend Development (4-6 Weeks)
-This is where you'll build the user interface and connect it to your backend.
-
-3.1. Component-Based Architecture:
-
-Break down your UI into reusable components (e.g., SearchBar, PlayerCard, StatsTable).
-
-3.2. Build Key Pages:
-
-Homepage: A visually appealing landing page.
-
-Player Search Page: The core of your application. Implement the search bar and display results.
-
-Player Profile Page: A dynamic page that displays detailed information for a selected player.
-
-Team Pages: Show team rosters and basic information.
-
-3.3. Connect Frontend to Backend:
-
-Use fetch or a library like axios to make requests to your backend API endpoints from your frontend application.
-
-3.4. Implement Responsiveness & Data Visualization:
-
-Ensure the website looks and functions well on all devices (desktop, tablet, and mobile) using CSS media queries or a framework like Tailwind CSS.
-
-Integrate data visualization components using Plotly.js or Chart.js for your analytics features.
-
-Create interactive dashboards leveraging your data analysis background.
-
-Phase 4: Testing & Deployment (1-2 Weeks)
-Before launching, you need to ensure everything works as expected.
-
-4.1. Testing:
-
-Unit Tests: Test individual components and functions.
-
-Integration Tests: Ensure the frontend and backend work together correctly.
-
-End-to-End (E2E) Tests: Simulate user journeys (e.g., searching for a player and navigating to their profile).
-
-Cross-Browser Testing: Check for compatibility issues on different web browsers.
-
-4.2. Deployment:
-
-Choose a hosting provider (e.g., Vercel, Netlify for the frontend; Heroku, AWS, or DigitalOcean for the backend).
-
-Set up a production environment and deploy your application.
-
-4.3. Domain & SSL:
-
-Purchase a domain name and configure an SSL certificate for HTTPS.
-
-Phase 5: Post-Launch & Iteration (Ongoing)
-The work isn't over after launch!
-
-5.1. Monitoring & Maintenance:
-
-Use analytics tools to monitor traffic and user behavior.
-
-Keep your dependencies and data sources up-to-date.
-
-5.2. Gather User Feedback:
-
-Add a feedback mechanism to understand what your users want.
-
-5.3. Feature Enhancements:
-
-Begin working on the "nice-to-have" features from your backlog based on user feedback and your goals.
+This roadmap prioritizes the technical skills most valuable for data analysts transitioning to ML engineering, with minimal frontend complexity.

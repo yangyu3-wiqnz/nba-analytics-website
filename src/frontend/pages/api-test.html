@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Analytics API - Testing Interface</title>
+    <!-- Bootstrap for quick, clean styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Chart.js for simple data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+        }
+        .status-success { color: #198754; }
+        .status-error { color: #dc3545; }
+        .status-loading { color: #0d6efd; }
+    </style>
+</head>
+<body>
+    <!-- Simple Header -->
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">🏀 NBA Analytics API - Backend Testing Interface</span>
+            <span class="navbar-text">Focus: Backend Development & Data Analysis</span>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <!-- API Testing Panel -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>🔧 API Testing Panel</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Quick API Tests -->
+                        <div class="mb-3">
+                            <label class="form-label">Quick Tests (External APIs):</label>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary" onclick="testExternalAPI('teams')">📊 Get All NBA Teams</button>
+                                <button class="btn btn-outline-primary" onclick="testExternalAPI('players')">👤 Get Players (Sample)</button>
+                                <button class="btn btn-outline-info" onclick="testExternalAPI('player-stats')">📈 Player Stats Sample</button>
+                            </div>
+                        </div>
+                        
+                        <hr>
+                        
+                        <!-- Future Backend API Tests -->
+                        <div class="mb-3">
+                            <label class="form-label">Backend API Tests (Future):</label>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-success" onclick="testBackendAPI('analytics')" disabled>🧮 Analytics Endpoint</button>
+                                <button class="btn btn-outline-success" onclick="testBackendAPI('ml-predict')" disabled>🤖 ML Predictions</button>
+                                <button class="btn btn-outline-success" onclick="testBackendAPI('advanced-stats')" disabled>📊 Advanced Stats</button>
+                            </div>
+                            <small class="text-muted">Will be enabled when FastAPI backend is built</small>
+                        </div>
+
+                        <!-- Custom API Test -->
+                        <div class="mb-3">
+                            <label for="apiEndpoint" class="form-label">Custom Endpoint Test:</label>
+                            <input type="text" class="form-control" id="apiEndpoint" placeholder="https://www.thesportsdb.com/api/v1/json/3/...">
+                            <button class="btn btn-primary mt-2" onclick="testCustomAPI()">Test Endpoint</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Analysis Tools -->
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5>📈 Data Analysis</h5>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-outline-secondary" onclick="generateSampleCharts()">Generate Sample Charts</button>
+                        <button class="btn btn-outline-secondary mt-2" onclick="showDataSummary()">Show Data Summary</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Display -->
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5>📝 API Response</h5>
+                        <span id="status-indicator" class="badge bg-secondary">Ready</span>
+                    </div>
+                    <div class="card-body">
+                        <div id="api-results" class="code-block">
+                            <p class="text-muted">Click a test button to see API results...</p>
+                            <p class="text-muted">This interface helps you test and understand NBA data APIs before building your FastAPI backend.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Visualization Row -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>📊 Sample Chart: Team Data</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="teamChart" width="400" height="200"></canvas>
+                        <small class="text-muted">Sample visualization - will be replaced with real analytics</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>📈 Player Performance Data</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="playerChart" width="400" height="200"></canvas>
+                        <small class="text-muted">Example of data visualization for your backend APIs</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Focus Information -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card bg-light">
+                    <div class="card-header">
+                        <h5>🎯 Project Focus: Backend & Data Skills</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h6>Backend Development</h6>
+                                <ul class="list-unstyled">
+                                    <li>✅ FastAPI development</li>
+                                    <li>✅ REST API design</li>
+                                    <li>✅ Database optimization</li>
+                                    <li>✅ API documentation</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-3">
+                                <h6>Data Engineering</h6>
+                                <ul class="list-unstyled">
+                                    <li>✅ Data pipelines</li>
+                                    <li>✅ ETL processes</li>
+                                    <li>✅ Data validation</li>
+                                    <li>✅ PostgreSQL queries</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-3">
+                                <h6>Machine Learning</h6>
+                                <ul class="list-unstyled">
+                                    <li>✅ Model development</li>
+                                    <li>✅ Model deployment</li>
+                                    <li>✅ Prediction APIs</li>
+                                    <li>✅ Performance monitoring</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-3">
+                                <h6>Simple Frontend</h6>
+                                <ul class="list-unstyled">
+                                    <li>✅ API testing interface</li>
+                                    <li>✅ Basic data visualization</li>
+                                    <li>✅ Bootstrap styling</li>
+                                    <li>✅ Minimal complexity</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Simple API testing script -->
+    <script src="../assets/js/api-test.js"></script>
+</body>
+</html>

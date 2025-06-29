@@ -13,13 +13,21 @@ class NBAApp {
     async init() {
         console.log('🏀 NBA Analytics App Starting...');
         
-        // Set up navigation
-        this.setupNavigation();
-        
-        // Load initial page content
-        await this.loadHomePage();
-        
-        console.log('✅ App initialized successfully');
+        try {
+            // Set up navigation
+            this.setupNavigation();
+            
+            // Set up card interactions
+            this.setupInteractivity();
+            
+            // Load initial page content
+            await this.loadHomePage();
+            
+            console.log('✅ App initialized successfully');
+        } catch (error) {
+            console.error('❌ App initialization failed:', error);
+            this.showError('Failed to initialize app. Please refresh the page.');
+        }
     }
 
     setupNavigation() {
@@ -112,7 +120,11 @@ class NBAApp {
                 <div class="container">
                     <h2 class="section-title">NBA Teams</h2>
                     <div class="teams-grid">
-                        ${teams.slice(0, 8).map(team => this.renderTeamCard(team)).join('')}
+                        ${(() => {
+                            const displayTeams = teams.slice(0, 8);
+                            console.log(`Rendering ${displayTeams.length} teams out of ${teams.length} total teams`);
+                            return displayTeams.map(team => this.renderTeamCard(team)).join('');
+                        })()}
                     </div>
                     <div class="section-footer">
                         <button class="btn btn-secondary" onclick="app.navigateToPage('teams')">View All Teams</button>
@@ -135,18 +147,23 @@ class NBAApp {
     }
 
     renderTeamCard(team) {
+        const teamName = team.strTeam || 'Unknown Team';
+        // Create better initials - take first letter of each word, max 3 letters
+        const teamInitials = teamName.split(' ')
+            .map(word => word[0])
+            .join('')
+            .substring(0, 3)
+            .toUpperCase();
+        
         return `
-            <div class="card team-card" data-team-id="${team.idTeam}">
+            <div class="card team-card" data-team-id="${team.idTeam}" title="Click to view ${teamName} details">
                 <div class="team-logo">
-                    ${team.strTeamBadge ? 
-                        `<img src="${team.strTeamBadge}" alt="${team.strTeam}" loading="lazy">` :
-                        `<div class="team-initial">${team.strTeam.charAt(0)}</div>`
-                    }
+                    <div class="team-initial">${teamInitials}</div>
                 </div>
                 <div class="team-info">
-                    <h3 class="team-name">${team.strTeam}</h3>
-                    <p class="team-league">${team.strLeague}</p>
-                    <p class="team-division">${team.strDivision || 'NBA'}</p>
+                    <h3 class="team-name">${teamName}</h3>
+                    <p class="team-league">${team.strLeague || 'NBA'}</p>
+                    <p class="team-division">${team.strDivision || 'Conference'}</p>
                 </div>
                 <div class="team-stats">
                     <div class="stat-item">
@@ -155,7 +172,7 @@ class NBAApp {
                     </div>
                     <div class="stat-item">
                         <span class="stat-label">Stadium</span>
-                        <span class="stat-value">${team.strStadium || 'N/A'}</span>
+                        <span class="stat-value">${(team.strStadium || 'N/A').substring(0, 20)}${team.strStadium && team.strStadium.length > 20 ? '...' : ''}</span>
                     </div>
                 </div>
             </div>
@@ -163,18 +180,22 @@ class NBAApp {
     }
 
     renderPlayerCard(player) {
+        const playerName = player.strPlayer || 'Unknown Player';
+        const playerPhoto = player.strThumb || player.strCutout;
+        
         return `
-            <div class="card player-card" data-player-id="${player.idPlayer}">
+            <div class="card player-card" data-player-id="${player.idPlayer}" title="Click to view ${playerName} details">
                 <div class="player-header">
                     <div class="player-photo">
-                        ${player.strThumb ? 
-                            `<img src="${player.strThumb}" alt="${player.strPlayer}" loading="lazy">` :
-                            `<div class="player-initial">${player.strPlayer.charAt(0)}</div>`
+                        ${playerPhoto ? 
+                            `<img src="${playerPhoto}" alt="${playerName}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                             <div class="player-initial" style="display:none;">${playerName.charAt(0)}</div>` :
+                            `<div class="player-initial">${playerName.charAt(0)}</div>`
                         }
                     </div>
                     <div class="player-info">
-                        <h3 class="player-name">${player.strPlayer}</h3>
-                        <p class="player-team">${player.strTeam}</p>
+                        <h3 class="player-name">${playerName}</h3>
+                        <p class="player-team">${player.strTeam || 'Free Agent'}</p>
                         <p class="player-position">${player.strPosition || 'Player'}</p>
                     </div>
                 </div>
@@ -185,7 +206,7 @@ class NBAApp {
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Born</span>
-                        <span class="detail-value">${player.dateBorn || 'N/A'}</span>
+                        <span class="detail-value">${player.dateBorn ? new Date(player.dateBorn).getFullYear() : 'N/A'}</span>
                     </div>
                 </div>
             </div>
@@ -264,6 +285,37 @@ class NBAApp {
                 </div>
             </div>
         `;
+    }
+
+    setupInteractivity() {
+        // Add click handlers for team cards
+        document.addEventListener('click', (e) => {
+            const teamCard = e.target.closest('.team-card');
+            if (teamCard) {
+                const teamId = teamCard.dataset.teamId;
+                this.showTeamDetails(teamId);
+            }
+
+            const playerCard = e.target.closest('.player-card');
+            if (playerCard) {
+                const playerId = playerCard.dataset.playerId;
+                this.showPlayerDetails(playerId);
+            }
+        });
+    }
+
+    showTeamDetails(teamId) {
+        // Add team details modal or navigation
+        console.log(`Show details for team ${teamId}`);
+        // For now, just show an alert - we can enhance this later
+        alert(`Team details for ID: ${teamId} - Feature coming soon!`);
+    }
+
+    showPlayerDetails(playerId) {
+        // Add player details modal or navigation
+        console.log(`Show details for player ${playerId}`);
+        // For now, just show an alert - we can enhance this later
+        alert(`Player details for ID: ${playerId} - Feature coming soon!`);
     }
 }
 
